@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sufi.App.Timer.UI"
         mc:Ignorable="d"
-        Title="Sufi.App.Timer.UI" Height="350" Width="525">
+        Title="Sufi.App.Timer.UI" Height="191" Width="385" ResizeMode="NoResize">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="117,97,0,0" VerticalAlignment="Top" Width="75"/>
-
+        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="216,42,0,0" VerticalAlignment="Top" Width="100" Height="30" Click="OnButtonStartClicked"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="216,77,0,0" VerticalAlignment="Top" Width="100" Height="30" Click="OnButtonStopClicked"/>
+        <TextBox x:Name="txtInput" HorizontalAlignment="Left" Height="30" Margin="55,42,0,0" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" Width="61" VerticalContentAlignment="Center" TextAlignment="Right" 
+                 PreviewTextInput="OnTextInputPreviewTextInput" DataObject.Pasting="OnTextInputPasting"/>
+        <Label Content="minute(s)" HorizontalAlignment="Left" Margin="121,42,0,0" VerticalAlignment="Top" Width="61" Height="30" VerticalContentAlignment="Center"/>
+        <TextBlock x:Name="textStatus" HorizontalAlignment="Left" Margin="55,121,0,0" TextWrapping="Wrap" Text="Shutdown timer stopped." VerticalAlignment="Top" Width="261"/>
+        <ComboBox HorizontalAlignment="Left" Margin="55,77,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="15"/>
+        </ComboBox>
     </Grid>
 </Window>
