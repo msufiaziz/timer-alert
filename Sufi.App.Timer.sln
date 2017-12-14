@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{E5CF94AF-4042-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sufi.App.Timer.UI", "UI\Sufi.App.Timer.UI\Sufi.App.Timer.UI.csproj", "{0F7F79E4-61EB-4852-A7A8-65E3E7C41123}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sufi.App.Timer.UI.WinForm", "UI\Sufi.App.Timer.UI.WinForm\Sufi.App.Timer.UI.WinForm.csproj", "{3874B10D-10D1-4C1F-A660-E3141D5D0D57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +19,17 @@ Global
 		{0F7F79E4-61EB-4852-A7A8-65E3E7C41123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F7F79E4-61EB-4852-A7A8-65E3E7C41123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F7F79E4-61EB-4852-A7A8-65E3E7C41123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3874B10D-10D1-4C1F-A660-E3141D5D0D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3874B10D-10D1-4C1F-A660-E3141D5D0D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3874B10D-10D1-4C1F-A660-E3141D5D0D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3874B10D-10D1-4C1F-A660-E3141D5D0D57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0F7F79E4-61EB-4852-A7A8-65E3E7C41123} = {E5CF94AF-4042-4C92-860C-D9821C7B7B67}
+		{3874B10D-10D1-4C1F-A660-E3141D5D0D57} = {E5CF94AF-4042-4C92-860C-D9821C7B7B67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01141534-CA22-4C2A-84B6-B64B5B0F2E9B}
