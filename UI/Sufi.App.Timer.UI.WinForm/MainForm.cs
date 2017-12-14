@@ -125,7 +125,7 @@ namespace Sufi.App.Timer.UI.WinForm
             // Start the shutdown process.
             var process = new Process
             {
-                StartInfo = new ProcessStartInfo("shutdown", "/s /t 7200")
+                StartInfo = new ProcessStartInfo("shutdown")
                 {
                     CreateNoWindow = true,
                     UseShellExecute = false,
