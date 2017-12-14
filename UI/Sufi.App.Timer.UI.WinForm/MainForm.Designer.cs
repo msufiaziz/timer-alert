@@ -44,7 +44,7 @@
             // 
             this.btnStart.Location = new System.Drawing.Point(212, 30);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(100, 30);
+            this.btnStart.Size = new System.Drawing.Size(90, 25);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -55,7 +55,7 @@
             this.btnStop.Enabled = false;
             this.btnStop.Location = new System.Drawing.Point(212, 66);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(100, 30);
+            this.btnStop.Size = new System.Drawing.Size(90, 25);
             this.btnStop.TabIndex = 0;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -92,7 +92,7 @@
             // 
             // timerStatus
             // 
-            this.timerStatus.Interval = 1000;
+            this.timerStatus.Interval = 500;
             this.timerStatus.Tick += new System.EventHandler(this.OnTimerStatusTick);
             // 
             // label1

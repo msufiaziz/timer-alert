@@ -22,6 +22,8 @@ namespace Sufi.App.Timer.UI.WinForm
         {
             InitializeComponent();
 
+            Text = Application.ProductName;
+
             lblStatus.Text = ShutdownTimerStopped;
 
             var timeList = new List<TimeSelectionModel>
@@ -42,6 +44,13 @@ namespace Sufi.App.Timer.UI.WinForm
         {
             if (cmbTime.SelectedIndex < 0)
                 return;
+
+            // Get selected item in the combo box.
+            var selectedItem = cmbTime.SelectedItem as TimeSelectionModel;
+            var timeSpan = TimeSpan.FromMilliseconds(selectedItem.Interval);
+
+            // Calculate shutdown time.
+            _shutdownDate = DateTime.Now.AddMilliseconds(selectedItem.Interval);
             
             timerStatus.Start();
 
@@ -50,16 +59,11 @@ namespace Sufi.App.Timer.UI.WinForm
 
             // Enable the 'Stop' button.
             btnStop.Enabled = true;
-
-            // Get selected item in the combo box.
-            var selectedItem = cmbTime.SelectedItem as TimeSelectionModel;
-            var timeSpan = TimeSpan.FromMilliseconds(selectedItem.Interval);
-
-            // Calculate shutdown time.
-            _shutdownDate = DateTime.Now.AddMilliseconds(selectedItem.Interval);
-
+            
             timerShutdown.Interval = selectedItem.Interval;
             timerShutdown.Start();
+
+            mainNotifyIcon.Text = "Shutdown sequence initiated...";
         }
 
         private void OnButtonStopClicked(object sender, EventArgs e)
@@ -76,6 +80,8 @@ namespace Sufi.App.Timer.UI.WinForm
 
             // Update the status text.
             lblStatus.Text = ShutdownTimerStopped;
+
+            mainNotifyIcon.Text = ShutdownTimerStopped;
         }
 
         private void OnTimerStatusTick(object sender, EventArgs e)
@@ -102,6 +108,10 @@ namespace Sufi.App.Timer.UI.WinForm
             {
                 Show();
                 WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                WindowState = FormWindowState.Minimized;
             }
         }
         #endregion

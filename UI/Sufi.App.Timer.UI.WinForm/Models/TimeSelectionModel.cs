@@ -10,6 +10,9 @@ namespace Sufi.App.Timer.UI.WinForm.Models
     {
         public string Title { get; set; }
 
+        /// <summary>
+        /// Gets or sets the interval value (in miliseconds).
+        /// </summary>
         public int Interval { get; set; }
 
         public override string ToString()
