@@ -91,7 +91,18 @@ namespace Sufi.App.Timer.UI.WinForm
 
         private void OnTimerShutdownTick(object sender, EventArgs e)
         {
-            RunShutdownCommand();
+            // Stop all timers.
+            timerStatus.Stop();
+            timerShutdown.Stop();
+
+            Task.Run(async () => 
+            {
+                bool result = await RunShutdownCommandAsync();
+                if (result)
+                {
+                    Application.Exit();
+                }
+            });
         }
 
         private void OnMainFormResized(object sender, EventArgs e)
@@ -116,26 +127,21 @@ namespace Sufi.App.Timer.UI.WinForm
         }
         #endregion
 
-        private void RunShutdownCommand()
+        private async Task<bool> RunShutdownCommandAsync()
         {
-            // Stop all timers.
-            timerStatus.Stop();
-            timerShutdown.Stop();
-
             // Start the shutdown process.
             var process = new Process
             {
-                StartInfo = new ProcessStartInfo("shutdown")
+                StartInfo = new ProcessStartInfo("shutdown", "/s")
                 {
                     CreateNoWindow = true,
                     UseShellExecute = false,
                 },
             };
 
-            Task.Run(() => process.Start());
+            await Task.Run(() => process.Start());
 
-            // Exit this application.
-            Close();
+            return true;
         }
 
         private void UpdateStatusText()

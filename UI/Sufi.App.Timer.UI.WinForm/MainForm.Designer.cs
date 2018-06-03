@@ -118,6 +118,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sufi.App.Timer.UI.WinForm";
             this.Resize += new System.EventHandler(this.OnMainFormResized);
             this.ResumeLayout(false);
