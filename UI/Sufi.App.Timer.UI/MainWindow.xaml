@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sufi.App.Timer.UI"
         xmlns:views="clr-namespace:Sufi.App.Timer.UI.Views"
+        xmlns:viewModels="clr-namespace:Sufi.App.Timer.UI.ViewModels"
         mc:Ignorable="d"
         Title="Shutdown Timer" Height="191" Width="385" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <views:MainWindowView/>
-    </Grid>
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+
+    <views:MainWindowView/>
 </Window>
