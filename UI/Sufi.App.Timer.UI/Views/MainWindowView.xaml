@@ -6,8 +6,14 @@
              xmlns:local="clr-namespace:Sufi.App.Timer.UI.Views"
              mc:Ignorable="d" d:DesignWidth="385" Height="166.287">
     <Canvas>
-        <Button Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="25" Command="{Binding StartButtonCommand}" Canvas.Left="243" Canvas.Top="42"/>
-        <Button Content="Stop" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="25" Command="{Binding StopButtonCommand}" Canvas.Left="243" Canvas.Top="83"/>
+        <Button Content="Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="25" 
+                Command="{Binding StartButtonCommand}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" 
+                Canvas.Left="243" Canvas.Top="42"/>
+        <Button Content="Stop" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="25" 
+                Command="{Binding StopButtonCommand}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" 
+                Canvas.Left="243" Canvas.Top="83"/>
         <Label Content="Select a value:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Height="27" VerticalContentAlignment="Center" Canvas.Left="48" Canvas.Top="10"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="190" Canvas.Left="48" Canvas.Top="83" Height="45"/>
         <ComboBox ItemsSource="{Binding Options}" Text="{Binding SelectedInterval}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Canvas.Left="48" Canvas.Top="42"/>

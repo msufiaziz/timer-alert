@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="Framework\DelegateCommand.cs" />
     <Compile Include="Framework\ObservableObject.cs" />
+    <Compile Include="Models\DurationModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
@@ -113,9 +114,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Jommans-Mushroom-Clock.ico" />
   </ItemGroup>

@@ -149,27 +149,10 @@ namespace Sufi.App.Timer.UI.WinForm
             // Calculate remaining minutes.
             var timeSpan = _shutdownDate.Subtract(DateTime.Now);
 
-            var builder = new StringBuilder("System will shutdown in");
-
-            if (timeSpan.Hours > 0)
-            {
-                builder.Append($" {timeSpan.Hours} hour(s)");
-            }
-
-            if (timeSpan.Minutes > 0)
-            {
-                builder.Append($" {timeSpan.Minutes} minute(s)");
-            }
-
-            if (timeSpan.Seconds > 0)
-            {
-                builder.Append($" {timeSpan.Seconds} second(s)");
-            }
-
-            builder.Append("...");
+            string status = $"System will shutdown in {timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}...";
 
             // Update the status text.
-            lblStatus.Text = builder.ToString();
+            lblStatus.Text = status;
         }
     }
 }

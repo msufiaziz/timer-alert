@@ -14,10 +14,15 @@ namespace Sufi.App.Timer.UI.Framework
         /// </summary>
         public event EventHandler CanExecuteChanged;
 
-        private readonly Action _executeAction;
+        private readonly Action<object> _executeAction;
         private readonly Func<bool> _canExecuteAction;
 
-        public DelegateCommand(Action executeAction, Func<bool> canExecuteAction)
+        public DelegateCommand(Action<object> executeAction) : this(executeAction, null)
+        {
+
+        }
+
+        public DelegateCommand(Action<object> executeAction, Func<bool> canExecuteAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = canExecuteAction;
@@ -45,7 +50,17 @@ namespace Sufi.App.Timer.UI.Framework
         public void Execute(object parameter)
         {
             // Just execute the specified action.
-            _executeAction();
+            _executeAction(parameter);
+        }
+
+        /// <summary>
+        /// Method used to raise the <see cref="CanExecuteChanged"/> event
+        /// to indicate that the return value of the <see cref="CanExecute"/>
+        /// method has changed.
+        /// </summary>
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -92,7 +92,7 @@
             // 
             // timerStatus
             // 
-            this.timerStatus.Interval = 500;
+            this.timerStatus.Interval = 1000;
             this.timerStatus.Tick += new System.EventHandler(this.OnTimerStatusTick);
             // 
             // label1

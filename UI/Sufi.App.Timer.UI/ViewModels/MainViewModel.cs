@@ -1,4 +1,5 @@
 ﻿using Sufi.App.Timer.UI.Framework;
+using Sufi.App.Timer.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -16,7 +18,9 @@ namespace Sufi.App.Timer.UI.ViewModels
         private readonly DispatcherTimer _shutdownTimer;
         private readonly DispatcherTimer _countdownTimer;
 
-        private string _selectedInterval;
+        private readonly DelegateCommand _startButtonCommand;
+
+        private DurationModel _selectedInterval;
         private string _status;
         private DateTime _shutdownDate;
 
@@ -27,21 +31,46 @@ namespace Sufi.App.Timer.UI.ViewModels
 
             _countdownTimer = new DispatcherTimer(DispatcherPriority.Normal);
             _countdownTimer.Tick += (sender, e) => UpdateStatusText();
-            _countdownTimer.Interval = TimeSpan.FromMilliseconds(500);
+            _countdownTimer.Interval = TimeSpan.FromMilliseconds(1000);
+
+            _startButtonCommand = new DelegateCommand((sender) =>
+            {
+                // Calculate shutdown time.
+                _shutdownDate = DateTime.Now.Add(_selectedInterval.Duration);
+
+                _shutdownTimer.Interval = _selectedInterval.Duration;
+                _shutdownTimer.Start();
+
+                _countdownTimer.Start();
+
+                Status = $"Shutdown countdown started...";
+            },
+            () =>
+            {
+                // Disable the button whenever the timer is active.
+                return !_shutdownTimer.IsEnabled && !string.IsNullOrEmpty(SelectedInterval);
+            });
 
             // Default value.
             Status = "Shutdown timer stopped.";
         }
 
-        public IEnumerable<string> Options { get; } = new List<string>() { "30 seconds", "1 minute", "5 minutes", "1 hour" };
+        public IEnumerable<DurationModel> Options { get; } = new List<DurationModel>()
+        {
+            new DurationModel("30 seconds", TimeSpan.FromSeconds(30)),
+            new DurationModel("1 minute", TimeSpan.FromMinutes(1)),
+            new DurationModel("5 minutes", TimeSpan.FromMinutes(5)),
+            new DurationModel("1 hour", TimeSpan.FromHours(1)),
+        };
 
         public string SelectedInterval
         {
-            get { return _selectedInterval; }
+            get { return _selectedInterval?.Title; }
             set
             {
-                _selectedInterval = value;
+                _selectedInterval = Options.First(x => x.Title == value);
                 RaisePropertyChangedEvent("SelectedInterval");
+                _startButtonCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -55,52 +84,20 @@ namespace Sufi.App.Timer.UI.ViewModels
             }
         }
 
-        public ICommand StartButtonCommand
-        {
-            get
-            {
-                return new DelegateCommand(() =>
-                {
-                    // Convert minute into second.
-                    double minute = Convert.ToDouble(SelectedInterval.Split(' ')[0]);
-
-                    // Calculate shutdown time.
-                    _shutdownDate = DateTime.Now.AddMinutes(minute);
-
-                    _shutdownTimer.Interval = TimeSpan.FromMinutes(minute);
-                    _shutdownTimer.Start();
-
-                    _countdownTimer.Start();
-
-                    Status = $"System will shutdown in {minute} minute(s)...";
-                }, 
-                () => 
-                {
-                    // Disable the button whenever the timer is active.
-                    return !_shutdownTimer.IsEnabled;
-                });
-            }
-        }
+        public ICommand StartButtonCommand => _startButtonCommand;
 
         public ICommand StopButtonCommand
         {
             get
             {
-                return new DelegateCommand(() =>
+                return new DelegateCommand((sender) =>
                 {
-                    // Enable the button.
-                    //btnStart.IsEnabled = true;
-
                     // Stop all timer.
                     _countdownTimer.Stop();
                     _shutdownTimer.Stop();
 
                     // Update the status text.
                     Status = $"Shutdown timer stopped.";
-                },
-                () =>
-                {
-                    return true;
                 });
             }
         }
@@ -122,6 +119,9 @@ namespace Sufi.App.Timer.UI.ViewModels
             };
 
             Task.Run(() => process.Start());
+
+            // Exit this application.
+            Application.Current.Shutdown();
         }
 
         private void UpdateStatusText()
@@ -130,7 +130,7 @@ namespace Sufi.App.Timer.UI.ViewModels
             var timeSpan = _shutdownDate.Subtract(DateTime.Now);
 
             // Update the status text.
-            Status = $"System will shutdown in {timeSpan.Minutes} minute(s) and {timeSpan.Seconds} second(s)...";
+            Status = $"System will shutdown in {timeSpan.Hours.ToString().PadLeft(2, '0')}:{timeSpan.Minutes.ToString().PadLeft(2, '0')}:{timeSpan.Seconds.ToString().PadLeft(2, '0')}...";
         }
     }
 }
